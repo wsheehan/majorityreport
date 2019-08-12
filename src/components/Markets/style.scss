@@ -1,0 +1,122 @@
+@import '../../colors.scss';
+
+.markets {
+    padding: 15px 30px;
+}
+
+.featured-market {
+    padding: 15px;
+    background-color: $black;
+    color: $beige;
+    margin-bottom: 25px;
+    box-shadow: 5px 5px $eighties-blue;
+
+    .tentative {
+        padding: 3px 6px;
+        border-radius: 2px;
+    }
+
+    .tentative-INVALID {
+        background-color: tomato;
+        color: #fff;
+    }
+
+    #featured {
+        background-color: $light-purple;
+        color: #fff;
+        font-size: 1.1em;
+        border-radius: 2px;
+        display: inline-block;
+        float: right;
+        padding: 4px 8px;
+        margin: -25px 20px 0px 0px;
+    }
+
+    #featured-desc {
+        padding: 10px 0px 5px 0px;
+        font-size: 1.2em;
+    }
+}
+
+.markets-nav {
+    // border: 1px dotted white;
+    text-align: left;
+    // margin-bottom: 25px;
+    padding: 15px 0px;
+
+    .mr-input {
+        display: inline-block;
+        vertical-align: top;
+    }
+
+    .markets-status-filter {
+        padding: 0px 10px;
+        display: inline-block;
+        height: 50px;
+        select {
+            // vertical-align: bottom;
+        }
+    }
+}
+
+.mr-input {
+    background-color: #e4e4e4;
+    outline: none;
+    border: 1px solid #333;
+    border-radius: 2px;
+    padding: 2px 8px;
+    display: inline-block;
+    width: 250px;
+    height: 50px;
+    font-size: 1.2em;
+    &:focus {
+        border: 2px solid $light-purple;
+    }
+}
+
+.mr-table {
+    text-align: left;
+    display: inline-block;
+    box-shadow: 10px 10px $eighties-blue;
+    thead {
+        background-color: $black;
+        color: $beige;
+    }
+
+    th {
+        padding: 4px 8px;
+        font-size: 1.1em;
+    }
+
+    tbody {
+        background-color: #e4e4e4;
+        tr {
+            border-bottom: 2px solid $black;
+            &:hover {
+                background-color: $beige;
+                // cursor: p;
+            }
+        }
+    }
+
+    td {
+        padding: 5px 10px;
+        font-size: 1em;
+    }
+}
+
+.description-cell {
+    width: 40%;
+}
+
+.market-topic {
+    background-color: #bbb7d2;
+    border-radius: 2px;
+    padding: 3px 6px;
+}
+
+.num-rounds {
+    display: inline-block;
+    padding: 2px 6px;
+    background-color: $light-purple;
+}
