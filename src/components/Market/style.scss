@@ -1,0 +1,161 @@
+@import '../../colors.scss';
+
+.Market {
+    a {
+        color: #6a5acd;
+        &:hover {
+            color: #4728ff;
+        }
+    }
+
+    .market-topic {
+        display: inline-block;
+        background-color: darkgray;
+        padding: 5px 10px;
+        border-radius: 10px;
+    }
+
+    .market-title {
+        font-size: 2em;
+        color: #f5f5f5;
+        padding: 25px 15px;
+    }
+
+    .market-description-long {
+        font-size: 1.3em;
+        padding: 15px 20px;
+        background-color: lightgray;
+        p {
+            margin-bottom: 4px;
+        }
+    }
+
+    .market-resolution {
+        margin-top: 15px;
+        padding: 15px 20px;
+        background-color: lightgray;
+    }
+
+    .market-creator {
+        margin-top: 15px;
+        padding: 15px 20px;
+        background-color: lightgray;
+        // font-size: 1.2em;
+
+        .market-creator-header {
+            font-size: 1.4em;
+        }
+
+        .trustworthiness {
+            border: 1px dotted red;
+            height: 25px;
+            vertical-align: middle;
+            div {
+                display: inline-block;
+                height: 25px;
+                margin: 0;
+                // padding: 5px;
+            }
+        }
+
+        .octicon {
+            width: 25px;
+            height: 25px;
+        }
+
+        hr {
+            background-color: #333333;
+        }
+
+        .market-creator-category {
+            display: inline-block;
+            margin: 0px 0px 15px 0px;
+        }
+
+        .market-creator-category-deceiptful {
+            color: white;
+            background-color: tomato;
+            padding: 2px 4px;
+            border-radius: 2px;
+            // float: right;
+        }
+    }
+}
+
+.dispute-info {
+    font-size: 1.4em;
+    padding: 25px;
+    background-color: #f5f5dc;
+    margin-bottom: 15px;
+
+    .dispute-category {
+        float: right;
+        .octicon {
+            fill: red !important;
+        }
+    }
+
+    .res-outcome-INVALID {
+        color: white;
+        background-color: tomato;
+        padding: 4px 8px;
+        border-radius: 2px;
+    }
+
+    .num-disputes-spicy {
+        color: white;
+        background-color: tomato;
+        padding: 4px 8px;
+        border-radius: 2px;
+    }
+}
+
+// header: 80px;
+// market-title: 98px;
+// dispute-info: 98px;
+// outcomes-header: 43px;
+
+.disputes {
+    border-bottom: 1px solid gray;
+    .rounds-wrapper {
+        height: calc(100vh - 80px - 98px - 98px - 43px - 15px);
+
+        // height: 500px;
+        overflow: scroll;
+    }
+
+    // outcome area
+    .outcome-column {
+        display: inline-block;
+        .outcome-header {
+            padding: 4px 8px 4px 16px;
+            font-size: 1.3em;
+            background-color: #7a7a7a;
+            border: 2px solid #333333;
+            color: white;
+        }
+
+        .outcome-header-resolved-true.outcome-header-current-true {
+            border: 2px solid #28a745;
+        }
+    }
+
+    // rounds
+    .round {
+        border: 1px solid #333333;
+        text-align: center;
+        font-size: 1.3em;
+        padding: 8px 4px;
+    }
+
+    .round-0 {}
+
+    .round-filled {
+        background-color: #827bac;
+        color: white;
+    }
+
+    .round-not-fillable {
+        background: linear-gradient(to bottom right, #404040 calc(50% - 1px), #aaa, #404040 calc(50% + 1px) );
+    }
+}
