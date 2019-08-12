@@ -1,80 +1,95 @@
 import React, { Component } from 'react'
-import axios from 'axios'
 import Web3 from 'web3'
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 import Market from './components/Market'
+import Markets from './components/Markets'
+import Precedents from './components/Precedents'
+import graphql from './graphql'
 
-import './App.css'
+import './App.scss'
+
+// const scalerMarket = "0x30c1a409258fe44facbfc3d5f89d8f39964f3d13"
+const binaryMarket = "0x30c1a409258fe44facbfc3d5f89d8f39964f3d13"
+const categoricalMarket = "0x5b6834410a66a20651e1323391b73a8e5c87d3e1"
+
+const houseMarket =  "0xbbbc0a8baa03535e0a680ee2f057162aaaafd570"
+
+// bastille
+const bastilleMarket = "0x67ef420c045f3561d11ef94b24da7e2010650cc3"
 
 class App extends Component {
   constructor() {
     super()
     this.state = {
-      market: null,
       web3: new Web3(Web3.givenProvider)
-    }
-  }
-
-  async componentDidMount() {
-    const query = `{
-      market(id: "0xbbbc0a8baa03535e0a680ee2f057162aaaafd570") {
-        topic
-        description
-        extraInfo
-        outcomes
-        finalized
-        disputes {
-          id
-          size
-          payoutNumerators
-          invalid
-          tokens {
-            tokenType
-            owners {
-              id
-              tokenAddress
-              amount
-            }
-          }
-        }
-        initialReports {
-          id
-          reporter
-          amountStaked
-          isDesignatedReporter
-          payoutNumerators
-          invalid
-        }
-      }
-    }`
-
-    const res = await axios.post('http://127.0.0.1:8000/subgraphs/name/augur', JSON.stringify({ query }))
-    const { market } = res.data.data
-
-    const { web3 } = this.state
-    market.outcomes = market.outcomes.map(web3.utils.hexToAscii)
-
-    if (res.data.data) {
-      this.setState({ market })
     }
   }
 
   render() {
     return (
-      <div className="App">
-        <Sidebar />
-        <div className="body-wrapper">
-          <Market {...this.state} />
+      <Router>
+        <div className="App">
+          <Header />
+          <Sidebar />
+          <div className="body-wrapper">
+            <Route path="/market/:id"
+              render={
+                props => 
+                  <Market {...this.state} {...props} />
+              }
+            />
+            <Route path="/markets"
+              render={
+                props => 
+                  <Markets {...this.state} {...props} />
+              }
+            />
+            <Route path="/precedents"
+              render={
+                props =>
+                  <Precedents />
+              }
+            />
+          </div>
         </div>
-      </div>
+      </Router>
     );
   }
 }
 
 function Sidebar () {
   return (
-    <div className="sidebar">
-      <span><i class="fas fa-search"></i></span>
+    <div className="Sidebar">
+      <div className="markets-nav" style={{display: 'none'}}>
+          <input placeholder="description, address, or topic" className="mr-input" />
+          <div className="markets-status-filter">
+            <select>
+              <option value="active">Active Markets</option>
+              <option value="all">All Markets</option>
+              <option value="awaiting next window">Awaiting Next Window</option>
+              <option value="crowdsourcing">Crowdsourcing Dispute</option>
+              <option value="initial report submitted">Initial Report Submitted</option>
+            </select>
+          </div>
+        </div>
+    </div>
+  )
+}
+
+function Header () {
+  return (
+    <div>
+      <header className="Header">
+        <div className="brand"></div>
+        <div className="nav"><Link to="/markets">Active Disputes</Link></div>
+        <div className="nav">Reporters</div>
+        <div className="nav"><Link to="/precedents">Precedents</Link></div>
+        <div className="user"></div>
+      </header>
+      <svg className="Header-triangle" preserveAspectRatio="none" height="50" viewBox="0 0 100 100">
+        <polygon points="0,100 0,0 100,0" opacity="1"></polygon>
+      </svg>
     </div>
   )
 }
