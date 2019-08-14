@@ -1,0 +1,45 @@
+.loader-wrapper {
+  text-align: center;
+}
+
+.loader {
+  display: inline-block;
+  position: relative;
+  width: 128px;
+  height: 128px;
+}
+
+.loader div {
+  display: inline-block;
+  position: absolute;
+  left: 12px;
+  width: 26px;
+  background: #333333;
+  animation: loader 1.2s cubic-bezier(0, 0.5, 0.5, 1) infinite;
+}
+
+.loader div:nth-child(1) {
+  left: 12px;
+  animation-delay: -0.24s;
+}
+
+.loader div:nth-child(2) {
+  left: 52px;
+  animation-delay: -0.12s;
+}
+
+.loader div:nth-child(3) {
+  left: 90px;
+  animation-delay: 0;
+}
+
+@keyframes loader {
+  0% {
+    top: 6px;
+    height: 102px;
+  }
+  50%, 100% {
+    top: 19px;
+    height: 52px;
+  }
+}
