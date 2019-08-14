@@ -86,11 +86,17 @@ function numDipsutesCategory (n) {
 
 function ResolutionStatus ({ market }) {
   if (market.finalized) {
-    const outcome = market.rounds[0].outcome
+    const outcome = market.tentativeOutcome
     const category = numDipsutesCategory(market.rounds.length - 1)
     return (
-      <div className={`resolution-${outcome}`}>
+      <div className={`resolution resolution-${outcome}`}>
         Resolved as: <span className={`res-outcome res-outcome-${outcome}`}>{outcome}</span> after <span className={`num-disputes num-disputes-${category}`}>{market.rounds.length - 1}</span> rounds of dispute
+      </div>
+    )
+  } else {
+    return (
+      <div className={`resolution`}>
+        Tentative Outcome: <span>{market.tentativeOutcome}</span>
       </div>
     )
   }
