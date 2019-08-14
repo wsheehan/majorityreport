@@ -6,6 +6,7 @@ import randomColor from 'randomcolor'
 
 import OcticonByName from '../../octicon'
 import PatternExtractor from 'pattern-extractor'
+import Loader from '../Loader'
 import UserInfo from '../UserInfo'
 import Disputes from './Disputes'
 
@@ -67,7 +68,7 @@ class Market extends Component {
   render() {
     const { market } = this.state
 
-    if (!market) return <div>Market</div>
+    if (!market) return <Loader />
 
     return (
       <div className="Market container-fluid">

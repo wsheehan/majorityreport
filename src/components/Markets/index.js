@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import ResSource from '../ResSource'
+import Loader from '../Loader'
 import { Link } from 'react-router-dom'
 import BN from 'bignumber.js'
 
@@ -81,7 +82,7 @@ class Markets extends Component {
   render() {
     const { markets, feeWindow, featuredMarket } = this.state
     if (!markets) {
-      return <div>Markets</div>
+      return <Loader />
     }
 
     return (
