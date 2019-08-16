@@ -39,9 +39,7 @@
 }
 
 .markets-nav {
-    // border: 1px dotted white;
     text-align: left;
-    // margin-bottom: 25px;
     padding: 15px 0px;
 
     .mr-input {
@@ -53,9 +51,42 @@
         padding: 0px 10px;
         display: inline-block;
         height: 50px;
-        select {
-            // vertical-align: bottom;
-        }
+    }
+}
+
+.settings {
+    cursor: pointer;
+    box-shadow: 3px 3px $eighties-blue;
+    background-color: $beige;
+    padding-top: 4px;
+    text-align: center;
+    height: 45px;
+    width: 45px;
+    float: right;
+    margin-top: -20px;
+    margin-right: 10px;
+    opacity: 1;
+}
+
+.settings-up-true {
+    margin-top: -75px;   
+}
+
+.settings-popup {
+    background-color: $black;
+    color: $beige;
+    padding: 10px;
+    width: 100%;
+    height: 45px;
+    box-shadow: 4px 4px $eighties-blue;
+    margin-bottom: 10px;
+
+    b {
+        font-size: 1.2em;
+    }
+
+    >span {
+        margin-right: 10px;
     }
 }
 
@@ -94,7 +125,7 @@
             border-bottom: 2px solid $black;
             &:hover {
                 background-color: $beige;
-                // cursor: p;
+                cursor: pointer;
             }
         }
     }
@@ -119,4 +150,32 @@
     display: inline-block;
     padding: 2px 6px;
     background-color: $light-purple;
+}
+
+.paginator {
+    width: 100%;
+    display: inline-block;
+    
+    >span {
+        padding: 5px 10px;
+        float: right;
+        box-shadow: 5px 5px $eighties-blue;
+        background-color: $beige;
+        margin-right: 20px;
+        margin-top: -10px;
+    }
+
+    .page {
+        color: $black;
+        padding: 0px 5px;
+        cursor: pointer;
+    }
+
+    .page-num {
+        background-color: $black;
+        padding: 2px 8px;
+        color: $beige;
+        font-size: 1.2em;
+        border-radius: 50%;
+    }
 }
