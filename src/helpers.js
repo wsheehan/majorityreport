@@ -1,12 +1,13 @@
 import BN from 'bignumber.js'
+import { hexToAscii } from 'web3-utils'
 
 export function weiToDec (wei) {
   return wei.dividedBy(new BN(10).pow(18))
 }
 
-export function parseMarket (market, web3) {
+export function parseMarket (market) {
   const extra = JSON.parse(market.extraInfo)
-  market.outcomes = getOutcomes(market, web3)
+  market.outcomes = getOutcomes(market)
 
   const parsedMarket = {
     ...market,
@@ -106,12 +107,17 @@ export function getDisputeOutcome({ outcomes, marketType }, dispute) {
   }
 }
 
-function getOutcomes(market, web3) {
+export function getMarketOutcome (market) {
+  const outcomes = getOutcomes(market)
+  return getDisputeOutcome({ outcomes, marketType: market.marketType }, market)
+}
+
+function getOutcomes(market) {
   if (market.marketType === 'Binary') {
     return [{description: 'NO', id: 0}, {description: 'YES', id: 1}, {description: 'INVALID', id: 2}]
   } else {
     const formattedOutcomes = market.outcomes.map((o, id) => {
-      return { description: web3.utils.hexToAscii(o), id }
+      return { description: hexToAscii(o), id }
     })
     return [...formattedOutcomes, {description: 'INVALID', id: market.outcomes.length}]
   }
