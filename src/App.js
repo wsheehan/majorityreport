@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Web3 from 'web3'
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
+import Jazzicon, { jsNumberForAddress } from 'react-jazzicon'
 
 import Market from './components/Market'
 import Markets from './components/Markets'
@@ -19,18 +20,15 @@ const houseMarket =  "0xbbbc0a8baa03535e0a680ee2f057162aaaafd570"
 const bastilleMarket = "0x67ef420c045f3561d11ef94b24da7e2010650cc3"
 
 class App extends Component {
-  constructor() {
-    super()
-    this.state = {
-      web3: new Web3(Web3.givenProvider)
-    }
+  componentDidMount() {
+    this.props.web3.setFirstValidConnector(['MetaMask'])
   }
 
   render() {
     return (
       <Router>
         <div className="App">
-          <Header />
+          <Header {...this.props} />
           <Sidebar />
           <div className="body-wrapper">
             <Route path="/market/:id"
@@ -77,7 +75,7 @@ function Sidebar () {
   )
 }
 
-function Header () {
+function Header ({ web3 }) {
   return (
     <div>
       <header className="Header">
@@ -85,13 +83,25 @@ function Header () {
         <div className="nav"><Link to="/markets">Active Disputes</Link></div>
         <div className="nav">Reporters</div>
         <div className="nav"><Link to="/precedents">Precedents</Link></div>
-        <div className="user"></div>
+        <UserIcon account={web3.account} />
       </header>
       <svg className="Header-triangle" preserveAspectRatio="none" height="50" viewBox="0 0 100 100">
         <polygon points="0,100 0,0 100,0" opacity="1"></polygon>
       </svg>
     </div>
   )
+}
+
+function UserIcon ({ account }) {
+  if (account) {
+    return (
+      <div className="user">
+        <Jazzicon diameter={50} seed={jsNumberForAddress(account)} />
+      </div>
+    )
+  } else {
+    return <div className="user"></div>
+  }
 }
 
 export default App
