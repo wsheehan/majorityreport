@@ -4,11 +4,22 @@ import 'bootstrap/dist/css/bootstrap.css';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-
+import Web3Provider, { Connectors, Web3Consumer } from 'web3-react'
 import init from './font-awesome-init'
 init()
 
-ReactDOM.render(<App />, document.getElementById('root'));
+// ethereum instantiation
+const MetaMask = new Connectors.InjectedConnector({ supportedNetworks: [1, 4] })
+
+ReactDOM.render(
+  <Web3Provider connectors={{ MetaMask }}
+    libraryName={'ethers.js'}>
+      <Web3Consumer>
+          {web3 => <App web3={web3} />}
+      </Web3Consumer> 
+  </Web3Provider>, 
+  document.getElementById('root')
+);
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
