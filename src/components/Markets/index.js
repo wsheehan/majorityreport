@@ -20,7 +20,8 @@ class Markets extends Component {
         skip: 0,
         first: 10,
         orderBy: 'totalDisputed',
-        finalized: false
+        finalized: false,
+        invalid: null
       },
       showSettings: false
     }
@@ -38,14 +39,20 @@ class Markets extends Component {
 
   async fetchMarkets() {
     const params = this.state.tableParams
+    const whereFilter = params.invalid === null
+      ? `where: { finalized: ${params.finalized} }`
+      : `where: { finalized: ${params.finalized}, invalid: ${params.invalid} }`
+
     const query = `{
-      markets(orderBy: ${params.orderBy}, orderDirection: desc, where: { finalized: ${params.finalized} }, first: ${params.first}, skip: ${params.skip}) {
+      markets(orderBy: ${params.orderBy}, orderDirection: desc, ${whereFilter}, first: ${params.first}, skip: ${params.skip}) {
         id
         description
         topic
         marketType
         totalDisputed
         status
+        payoutNumerators
+        invalid
         marketCreator {
           id
         }
@@ -177,6 +184,14 @@ class Markets extends Component {
               <span>
                 <span>Finalized: </span> 
                 <select value={tableParams.finalized} onChange={e => this.updateTableParam("finalized", Boolean(e.target.value))}>
+                  <option value="true">True</option>
+                  <option value="false">False</option> 
+                </select>
+              </span>
+              <span>
+                <span>Invalid: </span> 
+                <select value={tableParams.invalid} onChange={e => this.updateTableParam("invalid", e.target.value === null ? null : Boolean(e.target.value))}>
+                  <option value="null">All</option>
                   <option value="true">True</option>
                   <option value="false">False</option> 
                 </select>
