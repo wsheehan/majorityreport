@@ -6,10 +6,12 @@ import BN from 'bignumber.js'
 import { isEqual } from 'lodash'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-import { weiToDec, parseMarket } from '../../helpers'
+import { weiToDec, parseMarket, getMarketOutcome } from '../../helpers'
 import graphql from '../../graphql'
+import { hexToAscii } from 'web3-utils'
 import './style.scss'
 
+const ZRX_DISPUTE = "0xb89c7dcf8a03b2218815679adf680a0e0399fff6"
 class Markets extends Component {
   constructor() {
     super()
@@ -50,6 +52,7 @@ class Markets extends Component {
         topic
         marketType
         totalDisputed
+        outcomes
         status
         payoutNumerators
         invalid
@@ -213,6 +216,7 @@ class Markets extends Component {
                   <th>Topic</th>
                   <th className="text-center">Type</th>
                   <th>Creator</th>
+                  <th>Outcome</th>
                   <th>Disputed</th>
                   <th>Rounds</th>
                   <th>
@@ -253,15 +257,15 @@ function MarketType ({ type }) {
   }
 }
 
-function MarketRow ({ market, web3, history }) {
-  const topic = web3.utils.hexToAscii(market.topic).split(',')[0]
-
+function MarketRow ({ market, history }) {
+  const topic = hexToAscii(market.topic).split(',')[0]
   return (
       <tr onClick={() => history.push(`/market/${market.id}`)}>
         <td className="description-cell">{market.description}</td>
         <td><span className="market-topic">{topic}</span></td>
         <td className="text-center"><MarketType type={market.marketType} /></td>
         <td><Link to={`/u/${market.marketCreator.id}`}>{market.marketCreator.id.slice(0, 8)}...</Link></td>
+        <td>{getMarketOutcome(market)}</td>
         <td>{weiToDec(new BN(market.totalDisputed)).toFixed(2)} REP</td>
         <td><span className="num-rounds">{market.disputes.length}</span></td>
         <td>{market.status}</td>
