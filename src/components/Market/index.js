@@ -4,13 +4,13 @@ import graphql from '../../graphql'
 import BN from 'bignumber.js'
 import randomColor from 'randomcolor'
 
-import OcticonByName from '../../octicon'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import PatternExtractor from 'pattern-extractor'
 import Loader from '../Loader'
-import UserInfo from '../UserInfo'
 import Disputes from './Disputes'
+import { hexToAscii } from 'web3-utils'
 
-import { parseMarket, fillRounds, getDisputeOutcome } from '../../helpers' 
+import { parseMarket, fillRounds, getDisputeOutcome, formatTs } from '../../helpers' 
 
 import './style.scss'
 
@@ -19,12 +19,18 @@ async function fetchMarket({ match, web3 }) {
 
   const query = `{
     market(id: "${marketId}") {
+      id
       topic
       description
       extraInfo
       outcomes
       finalized
       marketType
+      endTime
+      createdAt
+      feeWindow {
+        id
+      }
       marketCreator {
         id
       }
@@ -35,6 +41,7 @@ async function fetchMarket({ match, web3 }) {
         payoutNumerators
         invalid
         completed
+        completedTimestamp
       }
       initialReport {
         id
@@ -47,10 +54,16 @@ async function fetchMarket({ match, web3 }) {
         invalid
       }
     }
+    feeWindows(orderBy: startTime, orderDirection: desc, first: 3){
+      id
+      startTime
+      endTime
+      address
+    }
   }`
 
-  const { market } = await graphql(query)
-  return parseMarket(market, web3)
+  const { market, feeWindows } = await graphql(query)
+  return { market: parseMarket(market, feeWindows), feeWindows }
 }
 
 class Market extends Component {
@@ -60,9 +73,7 @@ class Market extends Component {
   }
 
   async componentDidMount() {
-    this.setState({
-      market: await fetchMarket(this.props)
-    })
+    this.setState(await fetchMarket(this.props))
   }
 
   render() {
@@ -74,12 +85,21 @@ class Market extends Component {
       <div className="Market container-fluid">
         <div className="row">
           <div className="col-sm-12">
-            <div className="market-title">{market.description}</div>
+            <div className="market-title">
+              <div className="description">{market.description}</div>
+              <div className="links">
+                <a href="augur.casino">Trade</a>&nbsp;&nbsp;
+                <a href={`https://reporters.chat/markets/${market.id}`}>Chat</a>
+              </div>
+              <span className="market-topic">{hexToAscii(market.topic)}</span>
+            </div>
           </div>
           <div className="col-sm-4">
             <div className="market-description-long">
               <p><b>Description:</b> {market.longDescription || "N/A"}</p>
               <p><b>Res Source:</b> <ResolutionSource text={market.resolutionSource || "N/A"} /></p>
+              <p>Market Created: <span className="time-block">{formatTs(market.createdAt)}</span></p>
+              <p>Reporting Start: <span className="time-block">{formatTs(market.endTime)}</span></p>
             </div>
             <div className="market-creator">
               <div className="market-creator-header">

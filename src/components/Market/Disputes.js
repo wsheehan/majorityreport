@@ -85,9 +85,9 @@ function numDipsutesCategory (n) {
 }
 
 function ResolutionStatus ({ market }) {
+  const outcome = market.tentativeOutcome
+  const category = numDipsutesCategory(market.rounds.length - 1)
   if (market.finalized) {
-    const outcome = market.tentativeOutcome
-    const category = numDipsutesCategory(market.rounds.length - 1)
     return (
       <div className={`resolution resolution-${outcome}`}>
         Resolved as: <span className={`res-outcome res-outcome-${outcome}`}>{outcome}</span> after <span className={`num-disputes num-disputes-${category}`}>{market.rounds.length - 1}</span> rounds of dispute
@@ -95,8 +95,9 @@ function ResolutionStatus ({ market }) {
     )
   } else {
     return (
-      <div className={`resolution`}>
-        Tentative Outcome: <span>{market.tentativeOutcome}</span>
+      <div className={`resolution resolution-${outcome}`}>
+        <span className="market-status">{market.status}</span>
+        Tentative Outcome: <span className={`res-outcome res-outcome-${outcome}`}>{market.tentativeOutcome}</span>
       </div>
     )
   }
@@ -106,8 +107,8 @@ function ResolutionStatus ({ market }) {
 function Rounds ({ outcome, market }) {
   return (
     <div key={outcome.id} className="outcome-column" style={{width: `${outcome.width}%`}}>
-      <UnfilledRound rounds={market.unfilledRounds} outcome={outcome} market={market} />
-      {market.rounds.map((round, i) => <Round round={round} previousRound={market.rounds[i-1]} outcome={outcome} />)}
+      <UnfilledRound rounds={market.unfilledRounds} outcome={outcome} market={market} previousRound={market.rounds[0]} />
+      {market.rounds.map((round, i) => <Round key={i} round={round} previousRound={market.rounds[i+1]} outcome={outcome} />)}
     </div>
   )
 }
@@ -115,7 +116,7 @@ function Rounds ({ outcome, market }) {
 function Round ({ round, outcome, previousRound }) {
   if (round.outcome === outcome.description) {
     return (
-      <div className={`round round-filled round-${round.round}`}>{weiToDec(round.sizeFilled).toFixed(2)}</div>
+      <div className={`round round-filled round-${round.round}`}>{weiToDec(round.sizeFilled).toFixed(2)} REP</div>
     )
   } else if (previousRound && previousRound.outcome === outcome.description) {
     return <div className="round round-not-fillable">&nbsp;<div className="diag-line"></div></div>
@@ -124,17 +125,25 @@ function Round ({ round, outcome, previousRound }) {
   }
 }
 
-function UnfilledRound ({ rounds, outcome, market }) {
-  if (rounds.length === 0 || market.finalized) return null
+function UnfilledRound ({ rounds, outcome, market, previousRound }) {
+  if (!["Crowdsourcing", "Initial Report Pending"].includes(market.status)) return null
 
   const round = rounds.find(r => r.outcome === outcome.description)
+  if (outcome.description === previousRound.outcome) {
+    return <div className="round round-not-fillable">&nbsp;<div className="diag-line"></div></div>
+  }
+
   if (round) {
     return (
-      <div className="round unfilled-round">{weiToDec(round.sizeFilled).toFixed(2)} / {weiToDec(round.size).toFixed(2)}</div>
+      <div className="round unfilled-round round-partially-filled">{weiToDec(round.sizeFilled).toFixed(2)} / {weiToDec(round.size).toFixed(2)}</div>
     )
   } else {
-    return <div className="round">&nbsp;</div>
+    return <div className="round unfilled-round">0 / {reqStake(outcome)}</div>
   }
+}
+
+function reqStake(outcome) {
+  return weiToDec(outcome.stakedOnOthers.times(2).minus(outcome.staked)).toFixed(2)
 }
 
 export default Disputes
