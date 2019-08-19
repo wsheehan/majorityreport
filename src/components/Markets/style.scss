@@ -90,52 +90,6 @@
     }
 }
 
-.mr-input {
-    background-color: #e4e4e4;
-    outline: none;
-    border: 1px solid #333;
-    border-radius: 2px;
-    padding: 2px 8px;
-    display: inline-block;
-    width: 250px;
-    height: 50px;
-    font-size: 1.2em;
-    &:focus {
-        border: 2px solid $light-purple;
-    }
-}
-
-.mr-table {
-    text-align: left;
-    display: inline-block;
-    box-shadow: 10px 10px $eighties-blue;
-    thead {
-        background-color: $black;
-        color: $beige;
-    }
-
-    th {
-        padding: 4px 8px;
-        font-size: 1.1em;
-    }
-
-    tbody {
-        background-color: #e4e4e4;
-        tr {
-            border-bottom: 2px solid $black;
-            &:hover {
-                background-color: $beige;
-                cursor: pointer;
-            }
-        }
-    }
-
-    td {
-        padding: 5px 10px;
-        font-size: 1em;
-    }
-}
-
 .description-cell {
     width: 40%;
 }

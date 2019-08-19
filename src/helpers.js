@@ -151,11 +151,6 @@ export function getDisputeOutcome({ outcomes, marketType }, dispute) {
   }
 }
 
-export function getMarketOutcome (market) {
-  const outcomes = getOutcomes(market)
-  return getDisputeOutcome({ outcomes, marketType: market.marketType }, market)
-}
-
 function getOutcomes(market) {
   if (market.marketType === 'Binary') {
     return [{description: 'NO', id: 0}, {description: 'YES', id: 1}, {description: 'INVALID', id: 2}]

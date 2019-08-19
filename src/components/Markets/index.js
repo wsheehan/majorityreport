@@ -6,12 +6,13 @@ import BN from 'bignumber.js'
 import { isEqual } from 'lodash'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-import { weiToDec, parseMarket, getMarketOutcome } from '../../helpers'
+import { weiToDec, parseMarket } from '../../helpers'
 import graphql from '../../graphql'
 import { hexToAscii } from 'web3-utils'
 import './style.scss'
 
 const ZRX_DISPUTE = "0xb89c7dcf8a03b2218815679adf680a0e0399fff6"
+
 class Markets extends Component {
   constructor() {
     super()
@@ -56,34 +57,9 @@ class Markets extends Component {
         status
         payoutNumerators
         invalid
-        marketCreator {
-          id
-        }
-        disputes {
-          id
-          size
-        }
         createdAt
-        endTime
-        finalized
-      }
-      feeWindows(orderBy: startTime, orderDirection: desc, first: 2){
-        id
-        startTime
-        endTime
-        address
-      }
-      market(id: "0xb89c7dcf8a03b2218815679adf680a0e0399fff6") {
-        topic
-        description
         extraInfo
-        outcomes
-        finalized
-        marketType
-        totalDisputed
-        marketCreator {
-          id
-        }
+        marketCreator { id }
         disputes {
           id
           size
@@ -91,22 +67,64 @@ class Markets extends Component {
           payoutNumerators
           invalid
           completed
+          completedTimestamp
         }
         initialReport {
           id
-          reporter {
-            id
-          }
+          reporter { id }
           amountStaked
           isDesignatedReporter
           payoutNumerators
           invalid
+          timestamp
+        }
+        createdAt
+        endTime
+        finalized
+      }
+      feeWindows(orderBy: startTime, orderDirection: desc, first: 3){
+        id
+        startTime
+        endTime
+        address
+      }
+      market(id: "0x67ef420c045f3561d11ef94b24da7e2010650cc3") {
+        topic
+        description
+        extraInfo
+        outcomes
+        finalized
+        marketType
+        totalDisputed
+        createdAt
+        marketCreator { id }
+        disputes {
+          id
+          size
+          sizeFilled
+          payoutNumerators
+          invalid
+          completed
+          completedTimestamp
+        }
+        initialReport {
+          id
+          reporter { id }
+          amountStaked
+          isDesignatedReporter
+          payoutNumerators
+          invalid
+          timestamp
         }
       }
     }`
 
     const { markets, feeWindows, market } = await graphql(query)
-    this.setState({ markets, feeWindow: feeWindows[1], featuredMarket: parseMarket(market) })
+    this.setState({ 
+      markets: markets.map(m => parseMarket(m, feeWindows)), 
+      feeWindow: feeWindows[1], 
+      featuredMarket: parseMarket(market, feeWindows) 
+    })
   }
 
   toggleShowSettings = () => {
@@ -229,7 +247,7 @@ class Markets extends Component {
               </thead>
               <tbody>
                 {markets.map(market => (
-                  <MarketRow market={market} {...this.props} />
+                  <MarketRow key={market.id} market={market} {...this.props} />
                 ))}
               </tbody>
             </table>
@@ -265,7 +283,7 @@ function MarketRow ({ market, history }) {
         <td><span className="market-topic">{topic}</span></td>
         <td className="text-center"><MarketType type={market.marketType} /></td>
         <td><Link to={`/u/${market.marketCreator.id}`}>{market.marketCreator.id.slice(0, 8)}...</Link></td>
-        <td>{getMarketOutcome(market)}</td>
+        <td>{market.tentativeOutcome}</td>
         <td>{weiToDec(new BN(market.totalDisputed)).toFixed(2)} REP</td>
         <td><span className="num-rounds">{market.disputes.length}</span></td>
         <td>{market.status}</td>
