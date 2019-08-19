@@ -1,5 +1,16 @@
 import BN from 'bignumber.js'
+import { DateTime } from 'luxon'
 import { hexToAscii } from 'web3-utils'
+
+const parsers = {
+  ms: 'fromMillis',
+  s: 'fromSeconds'
+}
+
+export function formatTs(ts, format = 's') {
+  const parser = parsers[format]
+  return DateTime[parser](Number(ts), { zone: 'utc'}).toFormat('fff')
+}
 
 export function weiToDec (wei) {
   return wei.dividedBy(new BN(10).pow(18))
