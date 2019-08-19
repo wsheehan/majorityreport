@@ -16,7 +16,7 @@ export function weiToDec (wei) {
   return wei.dividedBy(new BN(10).pow(18))
 }
 
-export function parseMarket (market) {
+export function parseMarket (market, feeWindows) {
   const extra = JSON.parse(market.extraInfo)
   market.outcomes = getOutcomes(market)
 
@@ -26,18 +26,50 @@ export function parseMarket (market) {
     ...fillRounds(market)
   }
 
-  parsedMarket.tentativeOutcome = parsedMarket.rounds[0].outcome
+  parsedMarket.status = getStatus(parsedMarket, feeWindows)
+  parsedMarket.tentativeOutcome = parsedMarket.rounds.length !== 0 ? parsedMarket.rounds[0].outcome : "None"
   return parsedMarket
+}
+
+function getStatus(market, feeWindows) {
+  if (market.status === "finalized") return "Finalized"
+
+  if (!market.rounds || market.rounds.length === 0) return "Open"
+  const currentFeeWindow = feeWindows[1]
+  const mostRecentRound = market.rounds[0]
+
+  const compTs = mostRecentRound.completedTimestamp
+  if (market.rounds.length === 1) {
+    if (compTs >= Number(currentFeeWindow.startTime)) {
+      return "Initial Report Submitted"
+    } else {
+      return "Initial Report Pending"
+    }
+  }
+
+  if (compTs >= Number(currentFeeWindow.startTime)) {
+    return "Awaiting Next Window"
+  } 
+
+  if (compTs <= Number(feeWindows[2].startTime)) {
+    return "Awaiting Finalization"
+  }
+
+  return "Crowdsourcing"
 }
 
 export function fillRounds (market) {
   const { outcomes, disputes, initialReport } = market
+  if (!initialReport) {
+    return { rounds: [], unfilledRounds: [] }
+  }
   const initialReportOutcome = getDisputeOutcome(market, initialReport)
   const rounds = [
     { 
       outcome: initialReportOutcome, 
       size: new BN(initialReport.amountStaked),
       sizeFilled: new BN(initialReport.amountStaked),
+      completedTimestamp: initialReport.timestamp,
       round: 0
     }
   ]
@@ -85,7 +117,8 @@ export function fillRounds (market) {
           outcome: outcome.description, 
           size: dispute.size,
           sizeFilled: dispute.sizeFilled,
-          round: disputes.length - _disputes.length
+          round: disputes.length - _disputes.length,
+          completedTimestamp: dispute.completedTimestamp
         })
         break
       }
