@@ -1,23 +1,20 @@
 import React, { Component } from 'react'
-import Web3 from 'web3'
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 import Jazzicon, { jsNumberForAddress } from 'react-jazzicon'
 
 import Market from './components/Market'
 import Markets from './components/Markets'
+import Creators from './components/Creators'
+import Reporters from './components/Reporters'
 import Precedents from './components/Precedents'
-import graphql from './graphql'
 
 import './App.scss'
 
 // const scalerMarket = "0x30c1a409258fe44facbfc3d5f89d8f39964f3d13"
-const binaryMarket = "0x30c1a409258fe44facbfc3d5f89d8f39964f3d13"
-const categoricalMarket = "0x5b6834410a66a20651e1323391b73a8e5c87d3e1"
-
-const houseMarket =  "0xbbbc0a8baa03535e0a680ee2f057162aaaafd570"
-
-// bastille
-const bastilleMarket = "0x67ef420c045f3561d11ef94b24da7e2010650cc3"
+// const binaryMarket = "0x30c1a409258fe44facbfc3d5f89d8f39964f3d13"
+// const categoricalMarket = "0x5b6834410a66a20651e1323391b73a8e5c87d3e1"
+// const houseMarket =  "0xbbbc0a8baa03535e0a680ee2f057162aaaafd570"
+// const bastilleMarket = "0x67ef420c045f3561d11ef94b24da7e2010650cc3"
 
 class App extends Component {
   componentDidMount() {
@@ -37,7 +34,7 @@ class App extends Component {
                   <Market {...this.state} {...props} />
               }
             />
-            <Route path="/markets"
+            <Route exact path="/"
               render={
                 props => 
                   <Markets {...this.state} {...props} />
@@ -47,6 +44,18 @@ class App extends Component {
               render={
                 props =>
                   <Precedents />
+              }
+            />
+            <Route path="/creators"
+              render={
+                props =>
+                  <Creators {...props} />
+              }
+            />
+            <Route path="/reporters"
+              render={
+                props =>
+                  <Reporters {...props} />
               }
             />
           </div>
@@ -80,8 +89,8 @@ function Header ({ web3 }) {
     <div>
       <header className="Header">
         <div className="brand"></div>
-        <div className="nav"><Link to="/markets">Active Disputes</Link></div>
-        <div className="nav">Reporters</div>
+        <div className="nav"><Link to="/">Active Disputes</Link></div>
+        <div className="nav"><Link to="/reporters">Reporters</Link></div>
         <div className="nav"><Link to="/precedents">Precedents</Link></div>
         <UserIcon account={web3.account} />
       </header>

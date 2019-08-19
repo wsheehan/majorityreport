@@ -4,9 +4,10 @@
 
 body {
     font-family: 'Inconsolata', monospace;
+    background-color: #c6c6c6;
 }
 
-$sidebar-min-width: 50px;
+$sidebar-min-width: 0px;
 $sidebar-max-width: 200px;
 
 .body-wrapper {
@@ -24,7 +25,7 @@ $sidebar-max-width: 200px;
     background-color: $light-purple;
     color: $black;
     height: 50px;
-    z-index: 1;
+    z-index: 100;
     overflow: visible;
 
     .brand {
@@ -33,7 +34,7 @@ $sidebar-max-width: 200px;
         display: inline-block;
         background-color: $black;
         margin: 10px 25px;
-        z-index: 2;
+        z-index: 1000;
     }
 
     .nav {
@@ -63,12 +64,12 @@ $sidebar-max-width: 200px;
     position: absolute;
     width: 100%;
     height: 50px;
-    z-index: 0;
+    z-index: 10;
     top: 50px;
     left: 0px;
     polygon {
         fill: $light-purple;
-        z-index: 0;
+        z-index: 10;
     }
 }
 
@@ -78,4 +79,50 @@ $sidebar-max-width: 200px;
     height: 100vh;
     z-index: -1;
     background-color: $beige;
+}
+
+.mr-input {
+    background-color: #e4e4e4;
+    outline: none;
+    border: 1px solid #333;
+    border-radius: 2px;
+    padding: 2px 8px;
+    display: inline-block;
+    width: 250px;
+    height: 50px;
+    font-size: 1.2em;
+    &:focus {
+        border: 2px solid $light-purple;
+    }
+}
+
+.mr-table {
+    text-align: left;
+    display: inline-block;
+    box-shadow: 10px 10px $eighties-blue;
+    thead {
+        background-color: $black;
+        color: $beige;
+    }
+
+    th {
+        padding: 4px 8px;
+        font-size: 1.1em;
+    }
+
+    tbody {
+        background-color: #e4e4e4;
+        tr {
+            border-bottom: 2px solid $black;
+            &:hover {
+                background-color: $beige;
+                cursor: pointer;
+            }
+        }
+    }
+
+    td {
+        padding: 5px 10px;
+        font-size: 1em;
+    }
 }
