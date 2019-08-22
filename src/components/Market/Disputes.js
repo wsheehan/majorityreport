@@ -23,6 +23,16 @@ function formatOutcomes (market) {
 }
 
 function Disputes ({ market }) {
+  if (market.marketType === "Scalar") {
+    return (
+      <div>
+        <div className="scalar-view-unavail">
+          Dispute View For Scalar Markets Not Yet Available
+        </div>
+      </div>
+    )
+  }
+  
   const currentOutcome = market.rounds[0].outcome
   const resolved = market.finalized
 

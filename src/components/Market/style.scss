@@ -196,3 +196,12 @@
         background-color: #ffd000;
     }
 }
+
+.scalar-view-unavail {
+    border: 1px solid $black;
+    background-color: #fff;
+    text-align: center;
+    font-size: 1.3em;
+    padding: 20px;
+    box-shadow: 5px 5px $eighties-blue;
+}
