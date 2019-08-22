@@ -17,7 +17,12 @@ export function weiToDec (wei) {
 }
 
 export function parseMarket (market, feeWindows) {
-  const extra = JSON.parse(market.extraInfo)
+  let extra
+  try {
+    extra = JSON.parse(market.extraInfo)
+  } catch {
+    extra = JSON.parse(market.extraInfo + '"}')
+  }
   market.outcomes = getOutcomes(market)
 
   const parsedMarket = {
