@@ -43,6 +43,9 @@ function getStatus(market, feeWindows) {
     if (compTs >= Number(currentFeeWindow.startTime)) {
       return "Initial Report Submitted"
     } else {
+      if (compTs <= Number(feeWindows[2].startTime)) {
+        return "Awaiting Finalization"
+      }
       return "Initial Report Pending"
     }
   }
@@ -60,7 +63,7 @@ function getStatus(market, feeWindows) {
 
 export function fillRounds (market) {
   const { outcomes, disputes, initialReport } = market
-  if (!initialReport) {
+  if (!initialReport || market.marketType === "Scalar") {
     return { rounds: [], unfilledRounds: [] }
   }
   const initialReportOutcome = getDisputeOutcome(market, initialReport)

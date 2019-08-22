@@ -48,6 +48,7 @@ async function fetchMarket({ match, web3 }) {
         reporter {
           id
         }
+        timestamp
         amountStaked
         isDesignatedReporter
         payoutNumerators
