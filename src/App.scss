@@ -111,7 +111,7 @@ $sidebar-max-width: 200px;
     box-shadow: 10px 10px $eighties-blue;
     thead {
         background-color: $black;
-        color: $beige;
+        color: #fff;
     }
 
     th {
@@ -120,11 +120,11 @@ $sidebar-max-width: 200px;
     }
 
     tbody {
-        background-color: #e4e4e4;
+        background-color: #f2f2f2;
         tr {
             border-bottom: 2px solid $black;
             &:hover {
-                background-color: $beige;
+                background-color: #fff;
                 cursor: pointer;
             }
         }
