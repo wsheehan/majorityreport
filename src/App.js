@@ -88,7 +88,10 @@ function Header ({ web3 }) {
   return (
     <div>
       <header className="Header">
-        <div className="brand"></div>
+        <div className="brand">
+          <div className="brand-top">MAJORITY</div>
+          <div className="brand-bottom">REPORT</div>
+        </div>
         <div className="nav"><Link to="/">Active Disputes</Link></div>
         <div className="nav"><Link to="/reporters">Reporters</Link></div>
         <div className="nav"><Link to="/precedents">Precedents</Link></div>

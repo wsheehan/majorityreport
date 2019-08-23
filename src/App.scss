@@ -29,12 +29,21 @@ $sidebar-max-width: 200px;
     overflow: visible;
 
     .brand {
-        height: 75px;
-        width: 75px;
+        font-family: 'VT323', monospace;
+        padding: 0px 8px;
+        text-align: right;
+        font-size: 2.4em;
+        height: 100px;
+        width: 150px;
         display: inline-block;
-        background-color: $black;
-        margin: 10px 25px;
+        margin: 10px 15px;
         z-index: 1000;
+
+        background-color: $eighties-blue;
+        color: $pink;
+        .brand-bottom {
+            margin-top: -15px;
+        }
     }
 
     .nav {
