@@ -11,6 +11,7 @@
     "axios": "^0.18.0",
     "bignumber.js": "^8.0.2",
     "bootstrap": "^4.3.1",
+    "linkifyjs": "^2.1.8",
     "lodash": "^4.17.11",
     "luxon": "^1.17.2",
     "node-sass": "^4.12.0",
