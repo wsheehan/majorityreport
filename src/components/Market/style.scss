@@ -35,63 +35,21 @@
     }
 
     .market-description-long {
-        font-size: 1.1em;
-        padding: 15px 20px;
+        // font-size: 1.1em;
+        padding: 10px 15px;
         background-color: #fff;
         box-shadow: 5px 5px $eighties-blue;
         p {
             margin-bottom: 4px;
         }
+        overflow-wrap: break-word;
+        word-wrap: break-word;
     }
 
     .market-resolution {
         margin-top: 15px;
         padding: 15px 20px;
         background-color: #fff;
-    }
-
-    .market-creator {
-        margin-top: 15px;
-        padding: 15px 20px;
-        background-color: #fff;
-        box-shadow: 5px 5px $eighties-blue;
-
-        .market-creator-header {
-            font-size: 1.2em;
-        }
-
-        .trustworthiness {
-            border: 1px dotted red;
-            height: 25px;
-            vertical-align: middle;
-            div {
-                display: inline-block;
-                height: 25px;
-                margin: 0;
-                // padding: 5px;
-            }
-        }
-
-        .octicon {
-            width: 25px;
-            height: 25px;
-        }
-
-        hr {
-            background-color: #333333;
-        }
-
-        .market-creator-category {
-            display: inline-block;
-            margin: 0px 0px 15px 0px;
-        }
-
-        .market-creator-category-deceiptful {
-            color: white;
-            background-color: tomato;
-            padding: 2px 4px;
-            border-radius: 2px;
-        }
     }
 }
 
@@ -144,24 +102,14 @@
     }
 }
 
-// header: 80px;
-// market-title: 98px;
-// dispute-info: 98px;
-// outcomes-header: 43px;
-
 .disputes {
     box-shadow: 5px 5px $eighties-blue;
     background-color: $black;
     border: 1px solid $beige;
-    // .rounds-wrapper {
-    //     height: calc(100vh - 80px - 98px - 98px - 43px - 15px);
-    //     overflow: scroll;
-    // }
 
     // outcome area
     .outcome-column {
         display: inline-block;
-        // border: 1px solid $black;
         .outcome-header {
             padding: 4px 8px 4px 16px;
             font-size: 1.1em;
@@ -204,4 +152,19 @@
     font-size: 1.3em;
     padding: 20px;
     box-shadow: 5px 5px $eighties-blue;
+}
+
+.market-creator {
+    margin-top: 15px;
+    padding: 15px 20px;
+    background-color: #fff;
+    box-shadow: 5px 5px $eighties-blue;
+
+    .reliability {
+        display: inline-block;
+        padding: 3px 6px;
+        border-radius: 2px;
+        color: #fff;
+        margin: 0px 10px;
+    }
 }

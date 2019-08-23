@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import { orderBy, sumBy } from 'lodash'
 import graphql from '../../graphql'
 import BN from 'bignumber.js'
@@ -6,9 +7,11 @@ import randomColor from 'randomcolor'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import PatternExtractor from 'pattern-extractor'
+import Linkify from 'linkifyjs/react'
 import Loader from '../Loader'
 import Disputes from './Disputes'
 import { hexToAscii } from 'web3-utils'
+import ResolutionSource from '../ResSource'
 
 import { parseMarket, fillRounds, getDisputeOutcome, formatTs } from '../../helpers' 
 
@@ -33,6 +36,15 @@ async function fetchMarket({ match, web3 }) {
       }
       marketCreator {
         id
+        marketsCreated
+        markets {
+          id
+          invalid
+          finalized
+          disputes {
+            id
+          }
+        }
       }
       disputes {
         id
@@ -97,37 +109,12 @@ class Market extends Component {
           </div>
           <div className="col-sm-4">
             <div className="market-description-long">
-              <p><b>Description:</b> {market.longDescription || "N/A"}</p>
-              <p><b>Res Source:</b> <ResolutionSource text={market.resolutionSource || "N/A"} /></p>
+              <p><b>Description:</b> <Linkify tagName="span">{market.longDescription || "N/A"}</Linkify></p>
+              <p><b>Res Source:</b> <ResolutionSource text={market.resolutionSource || "General Knowledge"} /></p>
               <p>Market Created: <span className="time-block">{formatTs(market.createdAt)}</span></p>
               <p>Reporting Start: <span className="time-block">{formatTs(market.endTime)}</span></p>
             </div>
-            <div className="market-creator">
-              <div className="market-creator-header">
-                <b>Created By: </b>
-                <a href={`etherscan.io/address/${market.marketCreator.id}`}>{market.marketCreator.id.slice(0, 8)}...</a>
-              </div>
-              <hr></hr>
-              <div>
-                <img src="https://upload.wikimedia.org/wikipedia/commons/c/cc/Augur_icon_white_background.png" height="25" width="25" /> 
-                <span> <b>REP: 245.00</b> <i>($3062.50)</i></span>
-              </div>
-              <div className="info-row">
-                <b>UNTRUSTRWORTHY</b> Reporter
-              </div>
-              <div className="info-row">
-                <b>FAST</b> Reporter
-              </div>
-              <div className="info-row">
-                <b>13</b> Markets Created
-              </div>
-              <div className="info-row">
-                <b>2700 ETH</b> Open Interest Generated
-              </div>
-              <div className="info-row">
-                <b>18 ETH</b> Fees Earned
-              </div>
-            </div>
+            <MarketCreator marketCreator={market.marketCreator} />
           </div>
           <div className="col-sm-7">
             <Disputes market={market} />
@@ -138,22 +125,41 @@ class Market extends Component {
   }
 }
 
-function MarketCreator ({ marketCreator }) {}
-
-function ResolutionSource ({ text }) {
-  const res = PatternExtractor.TextArea.extractAllUrls(text)
-  
-  if (res.length > 0) {
-    const {start, end} = res[0].index
-    const url = text.slice(start, end)
-    return (
-      <span>
-        {text.slice(0, start)}<a href={url}>{url}</a>{text.slice(end)}
-      </span>
-    )
+function getReliability (validDecimal) {
+  if (validDecimal === 1) {
+    return { label: "Pristine", color: "green" }
+  } else if (validDecimal >= 0.95) {
+    return { label: "Very Good", color: "green" }
+  } else if (validDecimal >= 0.9) {
+    return { label: "Good", color: "green" }
+  } else if (validDecimal >= 0.5) {
+    return { label: "Bad", color: "orange" }
+  } else if (validDecimal === NaN) {
+    return { label: "Unknown", color: "gray" }
+  } else {
+    return { label: "Abysmal", color: "red" }
   }
+}
 
-  return text
+function MarketCreator ({ marketCreator }) {
+  const { id, marketsCreated, markets } = marketCreator
+
+  const finalMarkets = markets.filter(m => m.finalized)
+  const validDecimal = finalMarkets.filter(m => !m.invalid).length / finalMarkets.length
+  const reliability = getReliability(validDecimal)
+
+  return (
+    <div className="market-creator">
+      <div className="market-creator-header">
+        <b>Creator: </b><Link to={`/creator/${id}`}>{id.slice(0, 8)}...</Link>
+        <div>Markets Created: {marketsCreated} ({finalMarkets.length} Finalized)</div>
+        <div>
+          Reliability: 
+          <span className="reliability" style={{ backgroundColor: reliability.color }}>{reliability.label}</span> 
+          <span>{(validDecimal * 100).toFixed(2)}%</span></div>
+      </div>
+    </div>
+  )
 }
 
 export default Market
