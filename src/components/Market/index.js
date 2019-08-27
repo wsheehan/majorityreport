@@ -147,6 +147,7 @@ function MarketCreator ({ marketCreator }) {
   const finalMarkets = markets.filter(m => m.finalized)
   const validDecimal = finalMarkets.filter(m => !m.invalid).length / finalMarkets.length
   const reliability = getReliability(validDecimal)
+  const disputedDecimal = finalMarkets.filter(m => !m.disputes.length).length / finalMarkets.length
 
   return (
     <div className="market-creator">
@@ -155,8 +156,10 @@ function MarketCreator ({ marketCreator }) {
         <div>Markets Created: {marketsCreated} ({finalMarkets.length} Finalized)</div>
         <div>
           Reliability: 
-          <span className="reliability" style={{ backgroundColor: reliability.color }}>{reliability.label}</span> 
-          <span>{(validDecimal * 100).toFixed(2)}%</span></div>
+          <div className="reliability" style={{ backgroundColor: reliability.color }}>{reliability.label}</div> 
+          <div>{(validDecimal * 100).toFixed(2)}% Valid</div>
+          <div> {(disputedDecimal * 100).toFixed(2)}% Disputed</div>
+        </div>
       </div>
     </div>
   )
