@@ -26,7 +26,6 @@ class App extends Component {
       <Router>
         <div className="App">
           <Header {...this.props} />
-          <Sidebar />
           <div className="body-wrapper">
             <Route path="/market/:id"
               render={
@@ -65,25 +64,6 @@ class App extends Component {
   }
 }
 
-function Sidebar () {
-  return (
-    <div className="Sidebar">
-      <div className="markets-nav" style={{display: 'none'}}>
-          <input placeholder="description, address, or topic" className="mr-input" />
-          <div className="markets-status-filter">
-            <select>
-              <option value="active">Active Markets</option>
-              <option value="all">All Markets</option>
-              <option value="awaiting next window">Awaiting Next Window</option>
-              <option value="crowdsourcing">Crowdsourcing Dispute</option>
-              <option value="initial report submitted">Initial Report Submitted</option>
-            </select>
-          </div>
-        </div>
-    </div>
-  )
-}
-
 function Header ({ web3 }) {
   return (
     <div>
@@ -101,6 +81,14 @@ function Header ({ web3 }) {
         <polygon points="0,100 0,0 100,0" opacity="1"></polygon>
       </svg>
     </div>
+  )
+}
+
+function Footer () {
+  return (
+    <footer>
+      Footer
+    </footer>
   )
 }
 

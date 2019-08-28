@@ -82,14 +82,6 @@ $sidebar-max-width: 200px;
     }
 }
 
-.Sidebar {
-    position: absolute;
-    width: $sidebar-min-width;
-    height: 100vh;
-    z-index: -1;
-    background-color: $beige;
-}
-
 .mr-input {
     background-color: #e4e4e4;
     outline: none;
@@ -134,4 +126,10 @@ $sidebar-max-width: 200px;
         padding: 5px 10px;
         font-size: 1em;
     }
+}
+
+footer {
+    margin-top: 20px;
+    background-color: $black;
+    color: $beige;
 }

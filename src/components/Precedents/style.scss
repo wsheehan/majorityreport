@@ -1,31 +1,24 @@
 @import '../../colors.scss';
 
+.precedents {
+    margin-top: 15px;
+}
+
+.precedent-wrapper {
+    margin: 20px 0px;
+}
+
 .precedent {
     border: 1px solid black;
     padding: 10px 15px;
-    margin: 10px 20px;
-    background-color: $beige;
+    background-color: #fff;
 
     box-shadow: 5px 5px $eighties-blue;
     position: relative;
 }
 
-.precedent-invalids {
-    position: absolute;
-    top: 5px;
-    right: 5px;
-
-    span {
-        background-color: $light-purple;
-        color: #fff;
-        padding: 2px 4px;
-    }
-}
-
-.precedent-notable {
-    display: inline-block;
-    padding: 4px 8px;
+.percent-of-invalids {
     background-color: $pink;
     color: #fff;
-    margin-right: 10px;
+    padding: 2px 4px;
 }

@@ -1,5 +1,8 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import { orderBy } from 'lodash'
+import Loader from '../Loader'
+import * as API from '../../api'
 
 import './style.scss'
 
@@ -35,9 +38,55 @@ const precedents = [
 ]
 
 class Precedents extends Component {
+  constructor() {
+    super()
+
+    this.state = {
+      precedents: null,
+      err: null
+    }
+  }
+
+  async componentDidMount() {
+    const data = await API.precedents()
+    if (data.err) {
+      this.setState({ err: data.err })
+    } else {
+      this.setState({ precedents: data })
+    }
+  }
+
   render() {
+    if (!this.state.precedents) {
+      return <Loader />
+    }
+
+    if (this.state.err) {
+      return <div>{this.state.err.message}</div>
+    }
+
+    const totalInvalids = this.state.precedents.reduce((acc, p) => acc + p.markets, 0)
+    const sortedPrecedents = orderBy(this.state.precedents, 'markets', 'desc')
+
     return (
-      <div className="precedents col-sm-10 offset-sm-1">
+      <div className="precedents container-fluid">
+        <div className="row">
+          {sortedPrecedents.map(p => (
+            <div className="precedent-wrapper col-sm-6">
+              <div className="precedent">
+                <h5>{p.description}</h5>
+                <p>{p.rationale}</p>
+                <span className="precedent-invalids">Markets Invalidated: {p.markets} <span className="percent-of-invalids">{((p.markets / totalInvalids) * 100).toFixed(2)}%</span></span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    )
+  }
+}
+
+/**<div className="precedents col-sm-10 offset-sm-1">
         {precedents.map(p => (
           <div className="precedent">
             <h4>{p.description}</h4>
@@ -48,9 +97,6 @@ class Precedents extends Component {
             <span className="precedent-invalids">Invalids: {p.invalids} <span>{(p.invalids / 3).toFixed(0)}%</span></span>
           </div>
         ))}
-      </div>
-    )
-  }
-}
+      </div>**/
 
 export default Precedents
