@@ -235,7 +235,7 @@ class Markets extends Component {
                   <th className="text-center">Type</th>
                   <th>Creator</th>
                   <th>Outcome</th>
-                  <th>Disputed</th>
+                  <th>At Stake</th>
                   <th>Rounds</th>
                   <th>
                     Status
