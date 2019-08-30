@@ -169,3 +169,19 @@ function getOutcomes(market) {
     return [...formattedOutcomes, {description: 'INVALID', id: market.outcomes.length}]
   }
 }
+
+export function getReliability (validDecimal) {
+  if (validDecimal === 1) {
+    return { label: "Pristine", color: "green" }
+  } else if (validDecimal >= 0.95) {
+    return { label: "Very Good", color: "green" }
+  } else if (validDecimal >= 0.9) {
+    return { label: "Good", color: "green" }
+  } else if (validDecimal >= 0.5) {
+    return { label: "Bad", color: "orange" }
+  } else if (validDecimal === NaN) {
+    return { label: "Unknown", color: "gray" }
+  } else {
+    return { label: "Abysmal", color: "red" }
+  }
+}
