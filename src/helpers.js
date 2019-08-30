@@ -7,9 +7,9 @@ const parsers = {
   s: 'fromSeconds'
 }
 
-export function formatTs(ts, format = 's') {
+export function formatTs(ts, format = 's', formatter = 'fff') {
   const parser = parsers[format]
-  return DateTime[parser](Number(ts), { zone: 'utc'}).toFormat('fff')
+  return DateTime[parser](Number(ts), { zone: 'utc'}).toFormat(formatter)
 }
 
 export function weiToDec (wei) {
