@@ -12,8 +12,6 @@ import graphql from '../../graphql'
 import { hexToAscii } from 'web3-utils'
 import './style.scss'
 
-const ZRX_DISPUTE = "0xb89c7dcf8a03b2218815679adf680a0e0399fff6"
-
 class Markets extends Component {
   constructor() {
     super()
@@ -22,7 +20,7 @@ class Markets extends Component {
       markets: null,
       tableParams: {
         skip: 0,
-        first: 10,
+        first: 25,
         orderBy: 'totalDisputed',
         finalized: false,
         invalid: null
@@ -89,7 +87,8 @@ class Markets extends Component {
         endTime
         address
       }
-      market(id: "0x67ef420c045f3561d11ef94b24da7e2010650cc3") {
+      market(id: "0xc247a41e8508b48c1e34609eedd077d60e75cbb1") {
+        id
         topic
         description
         extraInfo
@@ -134,19 +133,19 @@ class Markets extends Component {
       return <Loader />
     }
     const settingsDisplay = showSettings ? 'block' : 'none'
-
     return (
       <div>
         <div className="markets container-fluid">
           <div className="row">
             <div className="featured-market col-md-10 offset-md-1">
               <div id="featured">Featured Market</div>
-              <div id="featured-desc">{featuredMarket.description}</div>
-              <p>{featuredMarket.longDescription}</p>
+              <div id="featured-desc">
+                <Link className="dope-link" to={`/market/${featuredMarket.id}`}>{featuredMarket.description}</Link>
+              </div>
+              <p><i>{featuredMarket.longDescription}</i></p>
               <div id="feature-res-source"><span>Res Source: </span><ResSource text={featuredMarket.resSource || "N/A"}/></div>
               <span id="featured-tentative">Tentative Outcome: <span className={`tentative tentative-${featuredMarket.tentativeOutcome}`}>{featuredMarket.tentativeOutcome}</span> </span>
-              <span id="featured-creator">Created By: {featuredMarket.marketCreator.id.slice(0, 8)} </span>
-              <span id="featured-staked">Disputed: {weiToDec(new BN(featuredMarket.totalDisputed)).toFixed(2)} REP</span>
+              <span id="featured-staked">&nbsp;&nbsp;Disputed: {weiToDec(new BN(featuredMarket.totalDisputed)).toFixed(2)} REP</span>
             </div>
           </div>
           <div className="row">
