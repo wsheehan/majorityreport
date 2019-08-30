@@ -1,0 +1,32 @@
+@import '../../colors.scss';
+
+.creator-header {
+    padding: 5px 10px 15px 10px;
+    background-color: $black;
+    color: $beige;
+
+    margin-top: 10px;
+    margin-bottom: 25px;
+    border: 1px solid $black;
+    box-shadow: 5px 5px $eighties-blue;
+
+    hr {
+        background-color: $beige;
+        margin: 5px 0px;
+    }
+
+    b {
+        font-size: 1.3em;
+    }
+    position: relative;
+
+    .reliability {
+        padding: 4px 8px;
+        border-radius: 2px;
+        position: absolute;
+        right: 10px;
+        top: -10px;
+        color: #fff;
+        font-size: 1.2em;
+    }
+}
