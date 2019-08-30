@@ -1,13 +1,6 @@
 @import '../../colors.scss';
 
 .Market {
-    a {
-        color: #6a5acd;
-        &:hover {
-            color: #4728ff;
-        }
-    }
-
     .market-topic {
         display: inline-block;
         background-color: $light-purple;
@@ -35,7 +28,6 @@
     }
 
     .market-description-long {
-        // font-size: 1.1em;
         padding: 10px 15px;
         background-color: #fff;
         box-shadow: 5px 5px $eighties-blue;
@@ -53,6 +45,21 @@
     }
 }
 
+.market-precedents-wrapper {
+    padding: 10px 15px;
+    margin-bottom: 15px;
+    background-color: #fff;
+    box-shadow: 5px 5px $eighties-blue;
+    span {
+        display: inline-block;
+        background-color: $eighties-blue;
+        box-shadow: 2px 2px $pink;
+        color: #fff;
+        padding: 3px 6px;
+        margin-right: 5px;
+    }
+}
+
 .time-block {
     background-color: $eighties-blue;
     color: $beige;
@@ -66,7 +73,6 @@
     font-size: 1.2em;
     padding: 25px;
     background-color: #fff;
-    border: 1px solid $black;
     box-shadow: 5px 5px $eighties-blue;
     margin-bottom: 15px;
 
@@ -80,16 +86,18 @@
         margin-right: 20px;
     }
 
-    .dispute-category {
-        float: right;
-        .octicon {
-            fill: red !important;
-        }
+    .res-outcome {
+        color: #fff;
+        background-color: $eighties-blue;
+        box-shadow: 3px 3px $pink;
+        padding: 6px 12px;
+        border-radius: 2px;
     }
 
     .res-outcome-INVALID {
         color: white;
         background-color: tomato;
+        box-shadow: 0px 0px $pink;
         padding: 4px 8px;
         border-radius: 2px;
     }
