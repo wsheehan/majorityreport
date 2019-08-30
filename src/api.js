@@ -17,6 +17,17 @@ export async function precedents () {
   }
 }
 
+export async function precedent (id) {
+  try {
+    const { data } = await axios.get(
+      `${BASE_URL}/precedent/${id}`
+    )
+    return data
+  } catch (e) {
+    return { err: e }
+  }
+}
+
 export async function market (id) {
   try {
     const { data } = await axios.get(
