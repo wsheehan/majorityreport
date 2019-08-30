@@ -6,6 +6,7 @@ import Market from './components/Market'
 import Markets from './components/Markets'
 import Creator from './components/Creator'
 import Reporters from './components/Reporters'
+import Precedent from './components/Precedent'
 import Precedents from './components/Precedents'
 
 import './App.scss'
@@ -24,13 +25,16 @@ class App extends Component {
           <Header {...this.props} />
           <div className="body-wrapper">
             <Route path="/market/:id"
-              render={props => <Market {...this.state} {...props} />}
+              render={props => <Market {...props} />}
             />
             <Route exact path="/"
-              render={props => <Markets {...this.state} {...props} />}
+              render={props => <Markets {...props} />}
             />
             <Route path="/precedents"
               render={props => <Precedents />}
+            />
+            <Route path="/precedent/:id"
+              render={props => <Precedent {...props} />}
             />
             <Route path="/creator/:id"
               render={props => <Creator {...props} />}
