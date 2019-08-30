@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const url = "http://127.0.0.1:8000/subgraphs/name/wsheehan/augur-reporting-subgraph"
+const url = "https://api.thegraph.com/subgraphs/name/wsheehan/majority-report"
 
 async function graphql (query) {
   const postData = JSON.stringify({ query })
