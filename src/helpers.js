@@ -32,7 +32,7 @@ export function parseMarket (market, feeWindows) {
   }
 
   parsedMarket.status = getStatus(parsedMarket, feeWindows)
-  parsedMarket.tentativeOutcome = parsedMarket.rounds.length !== 0 ? parsedMarket.rounds[0].outcome : "None"
+  parsedMarket.tentativeOutcome = parsedMarket.rounds.length !== 0 ? parsedMarket.rounds[0].outcome : "N/A"
   return parsedMarket
 }
 
