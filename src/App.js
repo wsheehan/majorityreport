@@ -4,7 +4,7 @@ import Jazzicon, { jsNumberForAddress } from 'react-jazzicon'
 
 import Market from './components/Market'
 import Markets from './components/Markets'
-import Creators from './components/Creators'
+import Creator from './components/Creator'
 import Reporters from './components/Reporters'
 import Precedents from './components/Precedents'
 
@@ -17,10 +17,6 @@ import './App.scss'
 // const bastilleMarket = "0x67ef420c045f3561d11ef94b24da7e2010650cc3"
 
 class App extends Component {
-  componentDidMount() {
-    this.props.web3.setFirstValidConnector(['MetaMask'])
-  }
-
   render() {
     return (
       <Router>
@@ -28,34 +24,16 @@ class App extends Component {
           <Header {...this.props} />
           <div className="body-wrapper">
             <Route path="/market/:id"
-              render={
-                props => 
-                  <Market {...this.state} {...props} />
-              }
+              render={props => <Market {...this.state} {...props} />}
             />
             <Route exact path="/"
-              render={
-                props => 
-                  <Markets {...this.state} {...props} />
-              }
+              render={props => <Markets {...this.state} {...props} />}
             />
             <Route path="/precedents"
-              render={
-                props =>
-                  <Precedents />
-              }
+              render={props => <Precedents />}
             />
-            <Route path="/creators"
-              render={
-                props =>
-                  <Creators {...props} />
-              }
-            />
-            <Route path="/reporters"
-              render={
-                props =>
-                  <Reporters {...props} />
-              }
+            <Route path="/creator/:id"
+              render={props => <Creator {...props} />}
             />
           </div>
         </div>
@@ -72,10 +50,8 @@ function Header ({ web3 }) {
           <div className="brand-top">MAJORITY</div>
           <div className="brand-bottom">REPORT</div>
         </div>
-        <div className="nav"><Link to="/">Active Disputes</Link></div>
-        <div className="nav"><Link to="/reporters">Reporters</Link></div>
+        <div className="nav"><Link to="/">Disputes</Link></div>
         <div className="nav"><Link to="/precedents">Precedents</Link></div>
-        <UserIcon account={web3.account} />
       </header>
       <svg className="Header-triangle" preserveAspectRatio="none" height="50" viewBox="0 0 100 100">
         <polygon points="0,100 0,0 100,0" opacity="1"></polygon>
