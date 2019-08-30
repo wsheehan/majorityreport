@@ -16,6 +16,10 @@
     box-shadow: 5px 5px $eighties-blue;
     position: relative;
 
+    h5 a {
+        color: $black;
+    }
+
     .short-name {
         float: right;
         background-color: $light-purple;
