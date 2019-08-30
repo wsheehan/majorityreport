@@ -7,14 +7,17 @@ body {
     background-color: #c6c6c6;
 }
 
-$sidebar-min-width: 0px;
 $sidebar-max-width: 200px;
+$phone: "only screen and (max-width: 768px)";
 
 .body-wrapper {
-    margin-left: $sidebar-min-width;
-    padding-top: 100px; 
+    padding-top: 100px;
+    padding-bottom: 25px; 
     height: calc(100vh);
     overflow: scroll;
+    @media #{$phone} {
+        overflow: visible;
+    }
 }
 
 .Header {
@@ -43,6 +46,12 @@ $sidebar-max-width: 200px;
         color: $pink;
         .brand-bottom {
             margin-top: -15px;
+        }
+
+        @media #{$phone} {
+            font-size: 2em;
+            height: 90px;
+            width: 125px;
         }
     }
 
