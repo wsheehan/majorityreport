@@ -8,16 +8,8 @@ import Web3Provider, { Connectors, Web3Consumer } from 'web3-react'
 import init from './font-awesome-init'
 init()
 
-// ethereum instantiation
-const MetaMask = new Connectors.InjectedConnector({ supportedNetworks: [1, 4] })
-
 ReactDOM.render(
-  <Web3Provider connectors={{ MetaMask }}
-    libraryName={'ethers.js'}>
-      <Web3Consumer>
-          {web3 => <App web3={web3} />}
-      </Web3Consumer> 
-  </Web3Provider>, 
+  <App />, 
   document.getElementById('root')
 );
 
