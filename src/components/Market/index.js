@@ -138,20 +138,6 @@ class Market extends Component {
   }
 }
 
-function getReliability (validDecimal) {
-  if (validDecimal === 1) {
-    return { label: "Pristine", color: "green" }
-  } else if (validDecimal >= 0.95) {
-    return { label: "Very Good", color: "green" }
-  } else if (validDecimal >= 0.9) {
-    return { label: "Good", color: "green" }
-  } else if (validDecimal >= 0.5) {
-    return { label: "Bad", color: "orange" }
-  } else if (validDecimal === NaN) {
-    return { label: "Unknown", color: "gray" }
-  } else {
-    return { label: "Abysmal", color: "red" }
-  }
 function PrecedentsUsed ({ precedents }) {
   if (!precedents) return null
 
@@ -171,18 +157,18 @@ function MarketCreator ({ marketCreator }) {
   const finalMarkets = markets.filter(m => m.finalized)
   const validDecimal = finalMarkets.filter(m => !m.invalid).length / finalMarkets.length
   const reliability = getReliability(validDecimal)
-  const disputedDecimal = finalMarkets.filter(m => !m.disputes.length).length / finalMarkets.length
+  const disputedDecimal = finalMarkets.filter(m => m.disputes.length).length / finalMarkets.length
 
   return (
     <div className="market-creator">
       <div className="market-creator-header">
-        <b>Creator: </b><Link to={`/creator/${id}`}>{id.slice(0, 8)}...</Link>
+        <b>Creator: </b><Link className="dope-link" to={`/creator/${id}`}>{id}</Link>
         <div>Markets Created: {marketsCreated} ({finalMarkets.length} Finalized)</div>
         <div>
           Reliability: 
           <div className="reliability" style={{ backgroundColor: reliability.color }}>{reliability.label}</div> 
-          <div>{(validDecimal * 100).toFixed(2)}% Valid</div>
-          <div> {(disputedDecimal * 100).toFixed(2)}% Disputed</div>
+          <div>Valid: {(validDecimal * 100).toFixed(2)}%</div>
+          <div>Disputed: {(disputedDecimal * 100).toFixed(2)}%</div>
         </div>
       </div>
     </div>
