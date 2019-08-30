@@ -8,7 +8,7 @@ import { weiToDec } from '../../helpers'
 function formatOutcomes (market) {
   market.outcomes.forEach(o => {
     o.nDisputes = market.rounds.filter(r => r.outcome === o.description).length
-    o.currentOutcome = market.rounds[0].outcome === o.description
+    o.currentOutcome = market.rounds[0] ? market.rounds[0].outcome === o.description : false
   })
 
   const activeOutcomes = market.outcomes.filter(o => o.nDisputes > 0)
@@ -33,7 +33,7 @@ function Disputes ({ market }) {
     )
   }
   
-  const currentOutcome = market.rounds[0].outcome
+  const currentOutcome = market.rounds[0] ? market.rounds[0].outcome : "N/A"
   const resolved = market.finalized
 
   // format outcomes
@@ -107,7 +107,7 @@ function ResolutionStatus ({ market }) {
     return (
       <div className={`resolution resolution-${outcome}`}>
         <span className="market-status">{market.status}</span>
-        Tentative Outcome: <span className={`res-outcome res-outcome-${outcome}`}>{market.tentativeOutcome}</span>
+        <span>Tentative Outcome: <span className={`res-outcome res-outcome-${outcome}`}>{market.tentativeOutcome}</span></span>
       </div>
     )
   }
