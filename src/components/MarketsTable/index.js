@@ -196,7 +196,7 @@ class MarketsTable extends Component {
               <th className="text-center">Type</th>
               <th>Creator</th>
               <th>Outcome</th>
-              <th>At Stake</th>
+              <th>Staked</th>
               <th>Rounds</th>
               <th>
                 Status
@@ -224,7 +224,7 @@ class MarketsTable extends Component {
   }
 }
 
-function MarketType ({ type }) {
+export function MarketType ({ type }) {
   if (type === "Binary") {
     return <FontAwesomeIcon icon={["fas", "adjust"]} size="1x" />
   } else if (type === "Categorical") {
@@ -234,7 +234,7 @@ function MarketType ({ type }) {
   }
 }
 
-function MarketRow ({ market, history }) {
+export function MarketRow ({ market, history }) {
   const topic = hexToAscii(market.topic).split(',')[0]
   return (
       <tr>
