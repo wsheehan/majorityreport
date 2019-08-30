@@ -15,6 +15,15 @@
 
     box-shadow: 5px 5px $eighties-blue;
     position: relative;
+
+    .short-name {
+        float: right;
+        background-color: $light-purple;
+        padding: 4px 8px;
+        margin-top: -20px;
+        border-radius: 2px;
+        color: #fff;
+    }
 }
 
 .percent-of-invalids {

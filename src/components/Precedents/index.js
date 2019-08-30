@@ -74,6 +74,7 @@ class Precedents extends Component {
           {sortedPrecedents.map(p => (
             <div className="precedent-wrapper col-sm-6">
               <div className="precedent">
+                <span className="short-name">{p.name}</span>
                 <h5>{p.description}</h5>
                 <p>{p.rationale}</p>
                 <span className="precedent-invalids">Markets Invalidated: {p.markets} <span className="percent-of-invalids">{((p.markets / totalInvalids) * 100).toFixed(2)}%</span></span>
@@ -85,18 +86,5 @@ class Precedents extends Component {
     )
   }
 }
-
-/**<div className="precedents col-sm-10 offset-sm-1">
-        {precedents.map(p => (
-          <div className="precedent">
-            <h4>{p.description}</h4>
-            <p>{p.rationale}</p>
-            {p.notables.map(n => (
-              <Link to={`/market/${n}`}><span className="precedent-notable">{n}</span></Link>
-            ))}
-            <span className="precedent-invalids">Invalids: {p.invalids} <span>{(p.invalids / 3).toFixed(0)}%</span></span>
-          </div>
-        ))}
-      </div>**/
 
 export default Precedents
