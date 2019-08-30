@@ -4,6 +4,7 @@ import { orderBy, sumBy } from 'lodash'
 import graphql from '../../graphql'
 import BN from 'bignumber.js'
 import randomColor from 'randomcolor'
+import { getReliability } from '../../helpers'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import PatternExtractor from 'pattern-extractor'
@@ -12,6 +13,7 @@ import Loader from '../Loader'
 import Disputes from './Disputes'
 import { hexToAscii } from 'web3-utils'
 import ResolutionSource from '../ResSource'
+import * as API from '../../api'
 
 import { parseMarket, fillRounds, getDisputeOutcome, formatTs } from '../../helpers' 
 
@@ -82,11 +84,21 @@ async function fetchMarket({ match, web3 }) {
 class Market extends Component {
   constructor() {
     super()
-    this.state = { market: null }
+    this.state = { 
+      market: null,
+      precedents: null 
+    }
   }
 
   async componentDidMount() {
-    this.setState(await fetchMarket(this.props))
+    const data = await fetchMarket(this.props)
+    this.setState(data)
+
+    // fetch precedents
+    const { precedents, err } = await API.market(data.market.id)
+    if (precedents) {
+      this.setState({ precedents })
+    }
   }
 
   render() {
@@ -108,6 +120,7 @@ class Market extends Component {
             </div>
           </div>
           <div className="col-sm-4">
+            <PrecedentsUsed precedents={this.state.precedents} />
             <div className="market-description-long">
               <p><b>Description:</b> <Linkify tagName="span">{market.longDescription || "N/A"}</Linkify></p>
               <p><b>Res Source:</b> <ResolutionSource text={market.resolutionSource || "General Knowledge"} /></p>
@@ -139,6 +152,17 @@ function getReliability (validDecimal) {
   } else {
     return { label: "Abysmal", color: "red" }
   }
+function PrecedentsUsed ({ precedents }) {
+  if (!precedents) return null
+
+  return (
+    <div className="market-precedents-wrapper">
+      <div><b>Reasons for Invalid</b></div>
+      {precedents.map(p => (
+        <span>{p.name}</span>
+      ))}
+    </div>
+  )
 }
 
 function MarketCreator ({ marketCreator }) {
