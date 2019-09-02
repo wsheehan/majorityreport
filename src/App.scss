@@ -12,7 +12,6 @@ $phone: "only screen and (max-width: 768px)";
 
 .body-wrapper {
     padding-top: 100px;
-    padding-bottom: 25px; 
     height: calc(100vh);
     overflow: scroll;
     @media #{$phone} {
@@ -256,3 +255,14 @@ $phone: "only screen and (max-width: 768px)";
         color: #fff;
     }
 }
+
+footer {
+    background-color: $black;
+    color: $beige;
+    font-size: 1.1em;
+    a {
+        color: $beige;
+    }
+    padding: 15px 25px;
+}
+
