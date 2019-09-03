@@ -149,7 +149,7 @@ class Markets extends Component {
             </div>
           </div>
           <div className="row">
-            <MarketsTable {...this.props} markets={markets} />
+            <MarketsTable {...this.props} markets={markets} tableParams={this.state.tableParams} />
           </div>
         </div>
       </div>
