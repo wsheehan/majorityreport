@@ -17,6 +17,10 @@ $phone: "only screen and (max-width: 768px)";
     @media #{$phone} {
         overflow: visible;
     }
+
+    .non-footer-body {
+        min-height: calc(100vh - 190px)
+    }
 }
 
 .Header {
@@ -257,6 +261,7 @@ $phone: "only screen and (max-width: 768px)";
 }
 
 footer {
+    height: 90px;
     background-color: $black;
     color: $beige;
     font-size: 1.1em;

@@ -11,12 +11,6 @@ import Precedents from './components/Precedents'
 
 import './App.scss'
 
-// const scalerMarket = "0x30c1a409258fe44facbfc3d5f89d8f39964f3d13"
-// const binaryMarket = "0x30c1a409258fe44facbfc3d5f89d8f39964f3d13"
-// const categoricalMarket = "0x5b6834410a66a20651e1323391b73a8e5c87d3e1"
-// const houseMarket =  "0xbbbc0a8baa03535e0a680ee2f057162aaaafd570"
-// const bastilleMarket = "0x67ef420c045f3561d11ef94b24da7e2010650cc3"
-
 class App extends Component {
   render() {
     return (
@@ -24,21 +18,23 @@ class App extends Component {
         <div className="App">
           <Header {...this.props} />
           <div className="body-wrapper">
-            <Route path="/market/:id"
-              render={props => <Market {...props} />}
-            />
-            <Route exact path="/"
-              render={props => <Markets {...props} />}
-            />
-            <Route path="/precedents"
-              render={props => <Precedents />}
-            />
-            <Route path="/precedent/:id"
-              render={props => <Precedent {...props} />}
-            />
-            <Route path="/creator/:id"
-              render={props => <Creator {...props} />}
-            />
+            <div className="non-footer-body">
+              <Route path="/market/:id"
+                render={props => <Market {...props} />}
+              />
+              <Route exact path="/"
+                render={props => <Markets {...props} />}
+              />
+              <Route path="/precedents"
+                render={props => <Precedents />}
+              />
+              <Route path="/precedent/:id"
+                render={props => <Precedent {...props} />}
+              />
+              <Route path="/creator/:id"
+                render={props => <Creator {...props} />}
+              />
+            </div>
             <Footer />
           </div>
         </div>
