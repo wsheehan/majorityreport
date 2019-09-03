@@ -113,8 +113,7 @@ class Market extends Component {
             <div className="market-title">
               <div className="description">{market.description}</div>
               <div className="links">
-                <a href="augur.casino">Trade</a>&nbsp;&nbsp;
-                <a href={`https://reporters.chat/markets/${market.id}`}>Chat</a>
+                <a className="dope-link" href={`https://reporters.chat/markets/${market.id}`}>Chat</a>
               </div>
               <span className="market-topic">{hexToAscii(market.topic)}</span>
             </div>
