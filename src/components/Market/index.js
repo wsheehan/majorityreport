@@ -12,7 +12,6 @@ import Linkify from 'linkifyjs/react'
 import Loader from '../Loader'
 import Disputes from './Disputes'
 import { hexToAscii } from 'web3-utils'
-import ResolutionSource from '../ResSource'
 import * as API from '../../api'
 
 import { parseMarket, fillRounds, getDisputeOutcome, formatTs } from '../../helpers' 
@@ -113,7 +112,7 @@ class Market extends Component {
             <div className="market-title">
               <div className="description">{market.description}</div>
               <div className="links">
-                <a className="dope-link" href={`https://reporters.chat/markets/${market.id}`}>Chat</a>
+                <a className="dope-link" href={`https://reporters.chat/markets/${market.id}`} target="_blank">Chat</a>
               </div>
               <span className="market-topic">{hexToAscii(market.topic)}</span>
             </div>
@@ -122,7 +121,7 @@ class Market extends Component {
             <PrecedentsUsed precedents={this.state.precedents} />
             <div className="market-description-long">
               <p><b>Description:</b> <Linkify tagName="span">{market.longDescription || "N/A"}</Linkify></p>
-              <p><b>Res Source:</b> <ResolutionSource text={market.resolutionSource || "General Knowledge"} /></p>
+              <p><b>Res Source:</b> <Linkify>{market.resolutionSource || "General Knowledge"}</Linkify></p>
               <p>Market Created: <span className="time-block">{formatTs(market.createdAt)}</span></p>
               <p>Reporting Start: <span className="time-block">{formatTs(market.endTime)}</span></p>
             </div>

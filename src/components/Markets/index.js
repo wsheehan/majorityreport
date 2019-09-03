@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
-import ResSource from '../ResSource'
 import MarketsTable from '../MarketsTable'
 import Loader from '../Loader'
 import { Link } from 'react-router-dom'
 import BN from 'bignumber.js'
 import { isEqual } from 'lodash'
+import Linkify from 'linkifyjs/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import { weiToDec, parseMarket } from '../../helpers'
@@ -143,7 +143,7 @@ class Markets extends Component {
                 <Link className="dope-link" to={`/market/${featuredMarket.id}`}>{featuredMarket.description}</Link>
               </div>
               <p><i>{featuredMarket.longDescription}</i></p>
-              <div id="feature-res-source"><span>Res Source: </span><ResSource text={featuredMarket.resSource || "N/A"}/></div>
+              <div id="feature-res-source"><span>Res Source: </span><Linkify>{featuredMarket.resolutionSource || "General Knowledge"}</Linkify></div>
               <span id="featured-tentative">Tentative Outcome: <span className={`tentative tentative-${featuredMarket.tentativeOutcome}`}>{featuredMarket.tentativeOutcome}</span> </span>
               <span id="featured-staked">&nbsp;&nbsp;Disputed: {weiToDec(new BN(featuredMarket.totalDisputed)).toFixed(2)} REP</span>
             </div>
