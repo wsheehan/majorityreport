@@ -18,7 +18,7 @@ class MarketsTable extends Component {
       orderBy: 'totalDisputed',
       user: props.user,
       finalized: false,
-      invalid: "null",
+      invalid: null,
       ...props.tableParams
     }
 
@@ -31,7 +31,7 @@ class MarketsTable extends Component {
 
   constructWhereQuery() {
     const { tableParams } = this.state
-    const whereFilter = tableParams.invalid === "null"
+    const whereFilter = tableParams.invalid === null
       ? `where: { finalized: ${tableParams.finalized}`
       : `where: { finalized: ${tableParams.finalized}, invalid: ${tableParams.invalid}`
 
@@ -89,6 +89,7 @@ class MarketsTable extends Component {
         address
       }
     }`
+    console.log(query)
     const { markets, feeWindows } = await graphql(query)
     this.setState({ 
       markets: markets.map(m => parseMarket(m, feeWindows)), 

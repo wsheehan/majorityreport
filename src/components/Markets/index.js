@@ -118,7 +118,6 @@ class Markets extends Component {
         }
       }
     }`
-
     const { markets, feeWindows, market } = await graphql(query)
     this.setState({ 
       markets: markets.map(m => parseMarket(m, feeWindows)), 
