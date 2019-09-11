@@ -66,12 +66,12 @@ function Footer () {
     <footer className="containter-fluid">
       <div className="row">
         <div className="col-sm-3">
-          <div><a href="https://github.com/wsheehan/majorityreport" className="dope-link">Github</a></div>
-          <div><a href="https://github.com/wsheehan/majorityreport/issues" className="dope-link">Feedback</a></div>
+          <div><a href="https://github.com/wsheehan/majorityreport" className="dope-link" target="_blank" rel="noopener noreferrer">Github</a></div>
+          <div><a href="https://github.com/wsheehan/majorityreport/issues" className="dope-link" target="_blank" rel="noopener noreferrer">Feedback</a></div>
         </div>
         <div className="col-sm-3">
-          <div><a href="https://twitter.com/_wilbur4ce_" className="dope-link">Twitter</a></div>
-          <div><a href="https://medium.com/@sheehan_95" className="dope-link">Blog</a></div>
+          <div><a href="https://twitter.com/_wilbur4ce_" className="dope-link" target="_blank" rel="noopener noreferrer">Twitter</a></div>
+          <div><a href="https://medium.com/@sheehan_95" className="dope-link" target="_blank" rel="noopener noreferrer">Blog</a></div>
         </div>
       </div>
     </footer>
