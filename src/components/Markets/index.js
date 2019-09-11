@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom'
 import BN from 'bignumber.js'
 import { isEqual } from 'lodash'
 import Linkify from 'linkifyjs/react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import { weiToDec, parseMarket } from '../../helpers'
 import graphql from '../../graphql'
@@ -87,7 +86,7 @@ class Markets extends Component {
         endTime
         address
       }
-      market(id: "0xc247a41e8508b48c1e34609eedd077d60e75cbb1") {
+      market(id: "0x41f56aafc039ad477183b28480a6d0bf67fd509c") {
         id
         topic
         description
@@ -141,7 +140,7 @@ class Markets extends Component {
               <div id="featured-desc">
                 <Link className="dope-link" to={`/market/${featuredMarket.id}`}>{featuredMarket.description}</Link>
               </div>
-              <p><i>{featuredMarket.longDescription}</i></p>
+              <p><i><Linkify>{featuredMarket.longDescription}</Linkify></i></p>
               <div id="feature-res-source"><span>Res Source: </span><Linkify>{featuredMarket.resolutionSource || "General Knowledge"}</Linkify></div>
               <span id="featured-tentative">Tentative Outcome: <span className={`tentative tentative-${featuredMarket.tentativeOutcome}`}>{featuredMarket.tentativeOutcome}</span> </span>
               <span id="featured-staked">&nbsp;&nbsp;Disputed: {weiToDec(new BN(featuredMarket.totalDisputed)).toFixed(2)} REP</span>
