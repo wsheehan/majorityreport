@@ -144,6 +144,9 @@ class Markets extends Component {
               <div id="feature-res-source"><span>Res Source: </span><Linkify>{featuredMarket.resolutionSource || "General Knowledge"}</Linkify></div>
               <span id="featured-tentative">Tentative Outcome: <span className={`tentative tentative-${featuredMarket.tentativeOutcome}`}>{featuredMarket.tentativeOutcome}</span> </span>
               <span id="featured-staked">&nbsp;&nbsp;Disputed: {weiToDec(new BN(featuredMarket.totalDisputed)).toFixed(2)} REP</span>
+              <span className="issues">
+                Possible issues: <Link to={`/precedent/2`} className="dope-link">Conflicting Details</Link>
+              </span>
             </div>
           </div>
           <div className="row">
