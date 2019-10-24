@@ -3,6 +3,9 @@
 /.pnp
 .pnp.js
 
+api/data/node_modules
+api/data/precedents.json
+
 # testing
 /coverage
 
