@@ -1,0 +1,2 @@
+defmodule MajorityReportApi do
+end
