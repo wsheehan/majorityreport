@@ -1,0 +1,12 @@
+@import '../../colors.scss';
+
+.creators {
+    .mr-table {
+        .dope-link {
+            color: $black;
+            &:hover {
+                color: #fff;
+            }
+        }
+    }
+}
