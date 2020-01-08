@@ -6,6 +6,7 @@ const url = "https://api.thegraph.com/subgraphs/name/wsheehan/majority-report"
 const query = `{
   markets(where: { invalid: true, finalized: true }, first: 500) {
     id
+    description
   }
 }`
 
@@ -26,7 +27,7 @@ async function run() {
   const missing = invalids.reduce((acc, m) => {
     const match = fileInvalids.find(({id}) => m.id === id)
     if (!match || match.precedents.length === 0) {
-      acc.push(m.id)
+      acc.push([m.description, m.id])
     } 
     return acc
   }, [])
