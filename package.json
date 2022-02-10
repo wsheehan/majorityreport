@@ -17,7 +17,7 @@
     "linkifyjs": "^2.1.8",
     "lodash": "^4.17.11",
     "luxon": "^1.17.2",
-    "node-sass": "^4.12.0",
+    "node-sass": "^7.0.0",
     "pattern-extractor": "^2.3.0",
     "randomcolor": "^0.5.4",
     "react": "^16.8.2",
